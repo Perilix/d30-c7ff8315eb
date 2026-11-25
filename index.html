@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Dossier n°30</title>
+<style>
+@font-face { font-family: Pop; font-weight: 600; src: url("p6.ttf"); font-display: swap; }
+@font-face { font-family: Pop; font-weight: 800; src: url("p8.ttf"); font-display: swap; }
+:root { --nuit: #0f1218; --carte: #1a1f29; --or: #d9a441; --or2: #ffd66b; --encre: #f4efe6; --gris: #9aa3b2; --rouge: #c8442f; --vert: #4caf7a; }
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { min-height: 100%; background: var(--nuit); color: var(--encre); font-family: Pop, system-ui, sans-serif; font-weight: 600; }
+body { background: radial-gradient(120% 70% at 50% 0%, #232a38 0%, var(--nuit) 60%); min-height: 100dvh; }
+main { max-width: 460px; margin: 0 auto; padding: max(20px, env(safe-area-inset-top)) 16px 40px; }
+.ecran { display: none; }
+.ecran.on { display: block; animation: entre .45s ease both; }
+@keyframes entre { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.sur { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--or); }
+h1 { font-weight: 800; font-size: 34px; line-height: 1.08; margin: 6px 0 10px; }
+p { font-size: 15px; line-height: 1.55; color: #d5d9e2; }
+.pas { display: flex; gap: 6px; margin: 4px 0 14px; }
+.pas i { flex: 1; height: 4px; border-radius: 2px; background: #2c3340; }
+.pas i.fait { background: var(--or); }
+
+/* Couverture */
+#couv { text-align: center; padding-top: 3vh; }
+.chemise { position: relative; margin: 22px auto 26px; width: 190px; height: 230px; background: linear-gradient(160deg, #d7b06a, #b98b3f); border-radius: 6px 16px 16px 6px; box-shadow: 0 24px 50px rgba(0,0,0,.5), inset 10px 0 0 rgba(0,0,0,.08); transform: rotate(-3deg); }
+.chemise::before { content: ""; position: absolute; left: 22px; top: -14px; width: 96px; height: 20px; background: #c9a05a; border-radius: 8px 8px 0 0; }
+.chemise b { position: absolute; left: 0; right: 0; top: 44px; font-weight: 800; font-size: 20px; color: #3a2a10; letter-spacing: .04em; }
+.chemise span { position: absolute; left: 0; right: 0; top: 76px; font-size: 11px; color: #5a4520; }
+.tampon { position: absolute; left: 20px; bottom: 40px; padding: 5px 10px; border: 3px solid var(--rouge); color: var(--rouge); font-weight: 800; font-size: 17px; letter-spacing: .1em; border-radius: 6px; transform: rotate(-12deg); opacity: .9; }
+
+button { font: inherit; font-weight: 800; font-size: 17px; width: 100%; min-height: 54px; border: 0; border-radius: 14px; background: var(--or); color: #20170a; cursor: pointer; }
+button:active { transform: scale(.98); }
+button.lien { background: none; color: var(--gris); font-weight: 600; font-size: 13px; min-height: 44px; text-decoration: underline; }
+
+/* Étapes */
+.cadre { position: relative; border-radius: 18px; overflow: hidden; background: #000; aspect-ratio: 9 / 16; max-height: 62dvh; margin: 0 auto 16px; box-shadow: 0 18px 40px rgba(0,0,0,.5); }
+.cadre video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.rejouer { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(10,12,16,.45); }
+.rejouer.on { display: flex; }
+.rejouer button { width: auto; padding: 0 22px; }
+.fiche { background: var(--carte); border: 1px solid #2c3340; border-radius: 16px; padding: 16px; }
+label { display: block; font-size: 14px; color: var(--or2); margin-bottom: 8px; }
+input { font: inherit; font-size: 18px; width: 100%; min-height: 54px; padding: 0 14px; border-radius: 12px; border: 2px solid #38404f; background: #11151c; color: var(--encre); margin-bottom: 10px; text-transform: uppercase; letter-spacing: .06em; }
+input:focus { outline: none; border-color: var(--or); }
+.msg { min-height: 22px; font-size: 14px; margin-top: 10px; color: var(--rouge); }
+.msg.ok { color: var(--vert); }
+.indices { margin-top: 6px; }
+.indices div { font-size: 14px; color: #d5d9e2; padding: 8px 10px; margin-top: 8px; background: #11151c; border-left: 4px solid var(--or); border-radius: 6px; }
+.secoue { animation: secoue .35s; }
+@keyframes secoue { 25% { transform: translateX(-7px); } 50% { transform: translateX(7px); } 75% { transform: translateX(-4px); } }
+
+/* Fin */
+.villes { display: flex; gap: 10px; margin: 14px 0 6px; }
+.villes div { flex: 1; text-align: center; padding: 14px 6px; border-radius: 14px; background: var(--carte); border: 1px solid #2c3340; font-weight: 800; font-size: 19px; color: var(--or2); }
+.villes small { display: block; font-weight: 600; font-size: 12px; color: var(--gris); margin-top: 2px; }
+.ou { align-self: center; color: var(--gris); font-size: 13px; }
+canvas#conf { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9; }
+</style>
+</head>
+<body>
+<canvas id="conf"></canvas>
+<main>
+
+  <section id="couv" class="ecran on">
+    <div class="sur">Agence J. · Enquêtes privées</div>
+    <h1>Cécile,<br>on a besoin de toi.</h1>
+    <div class="chemise"><b>DOSSIER N°30</b><span>L'affaire du cadeau disparu</span><div class="tampon">CONFIDENTIEL</div></div>
+    <div class="fiche" style="text-align:left">
+      <label for="i0">Code d'accès : l'année où l'affaire Cécile a commencé.</label>
+      <input id="i0" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off" placeholder="• • • •" style="text-align:center; letter-spacing:.5em; font-size:26px">
+      <button data-e="0">Déverrouiller</button>
+      <div class="msg" id="m0"></div>
+      <div class="indices" id="h0"></div>
+    </div>
+    <p style="margin-top:14px; font-size:13px; color:var(--gris)">Monte le son avant d'entrer.</p>
+  </section>
+
+  <section id="e1" class="ecran">
+    <div class="sur">Dossier n°30 · Piste 1 · Le rébus</div>
+    <div class="pas"><i class="fait"></i><i></i><i></i></div>
+    <div class="cadre"><video id="v1" src="a.mp4" poster="a.jpg" playsinline preload="metadata"></video><div class="rejouer" id="r1"><button data-v="v1">▶ Revoir les quatre images</button></div></div>
+    <div class="fiche">
+      <label for="i1">Quatre images, une ville. Laquelle ?</label>
+      <input id="i1" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Ta réponse">
+      <button data-e="1">Valider</button>
+      <div class="msg" id="m1"></div>
+      <div class="indices" id="h1"></div>
+    </div>
+  </section>
+
+  <section id="e2" class="ecran">
+    <div class="sur">Dossier n°30 · Piste 2 · Les pièces à conviction</div>
+    <div class="pas"><i class="fait"></i><i class="fait"></i><i></i></div>
+    <div class="cadre"><video id="v2" src="b.mp4" poster="b.jpg" playsinline preload="metadata"></video><div class="rejouer" id="r2"><button data-v="v2">▶ Revoir les six pièces</button></div></div>
+    <div class="fiche">
+      <label for="i2">Six initiales, une ville. Laquelle ?</label>
+      <input id="i2" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Ta réponse">
+      <button data-e="2">Valider</button>
+      <div class="msg" id="m2"></div>
+      <div class="indices" id="h2"></div>
+    </div>
+  </section>
+
+  <section id="e3" class="ecran">
+    <div class="sur">Dossier n°30 · Affaire résolue</div>
+    <div class="pas"><i class="fait"></i><i class="fait"></i><i class="fait"></i></div>
+    <div class="cadre"><video id="v3" src="c.mp4" poster="c.jpg" playsinline preload="metadata"></video><div class="rejouer" id="r3"><button data-v="v3">▶ Revoir</button></div></div>
+    <h1>Joyeux 30 ans, Cécile.</h1>
+    <p>Ton cadeau : un week-end, dans la ville que ton agenda choisira.</p>
+    <div class="villes"><div>Marrakech<small>mât · rat · quai · ch</small></div><span class="ou">ou</span><div>Dublin<small>N · U · L · I · D · B</small></div></div>
+    <button class="lien" id="raz">Rejouer l'enquête depuis le début</button>
+  </section>
+
+</main>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var CLE = "dossier30";
+  // empreintes des bonnes réponses (pas de réponse en clair dans la page)
+  var BON = { 0: [2085891138], 1: [3387452077, 3387452605, 1551894079, 1551893551], 2: [1140095293] };
+  var AIDE = {
+    0: ["Quatre chiffres. Une année.", "Il y a trente ans, quelqu'un est né.", "Ton année de naissance, Cécile."],
+    1: ["C'est un rébus : nomme ce que tu vois, une syllabe par image.", "Image 1 : ce qui porte les voiles. Image 2 : le rongeur.", "Image 3 : là où on attend le train. Image 4 : le bruit qu'on fait pour faire taire quelqu'un.", "Mât… rat… quai… ch…"],
+    2: ["Chaque pièce est un objet. Garde seulement sa première lettre.", "Un nid, un ukulélé, une loupe, un iguane, un dé, une bougie.", "N, U, L, I, D, B : remets-les dans l'ordre.", "C'est une capitale, sur une île très verte."]
+  };
+  var rate = { 0: 0, 1: 0, 2: 0 };
+  function h(s) { var x = 5381; for (var i = 0; i < s.length; i++) x = ((x * 33) ^ s.charCodeAt(i)) >>> 0; return x; }
+  function net(s) { return s.toLowerCase().normalize("NFD").replace(/[^a-z]/g, ""); }
+  function lire() { try { return parseInt(localStorage.getItem(CLE) || "0", 10) || 0; } catch (e) { return 0; } }
+  function noter(n) { try { localStorage.setItem(CLE, String(n)); } catch (e) {} }
+
+  function aller(n, jouer) {
+    ["couv", "e1", "e2", "e3"].forEach(function (id, i) { $(id).classList.toggle("on", i === n); });
+    document.querySelectorAll("video").forEach(function (v) { v.pause(); });
+    window.scrollTo(0, 0);
+    if (n > 0) {
+      var v = $("v" + n);
+      $("r" + n).classList.remove("on");
+      if (jouer) { v.currentTime = 0; var p = v.play(); if (p && p.catch) p.catch(function () { $("r" + n).classList.add("on"); }); }
+      else $("r" + n).classList.add("on");
+      if (n === 3 && jouer) confettis();
+    }
+  }
+  [1, 2, 3].forEach(function (n) {
+    $("v" + n).addEventListener("ended", function () { $("r" + n).classList.add("on"); if (n < 3) $("i" + n).focus({ preventScroll: true }); });
+  });
+  document.querySelectorAll("[data-v]").forEach(function (b) {
+    b.addEventListener("click", function () { var v = $(b.dataset.v); b.parentNode.classList.remove("on"); v.currentTime = 0; v.play(); });
+  });
+
+
+  function valider(n) {
+    var champ = $("i" + n), msg = $("m" + n), r = n === 0 ? champ.value.replace(/[^0-9]/g, "") : net(champ.value);
+    if (!r) return;
+    if (BON[n].indexOf(h(r)) >= 0) {
+      msg.className = "msg ok"; msg.textContent = n === 0 ? "Accès autorisé." : "Piste confirmée. Bien joué, enquêtrice.";
+      noter(n + 1); champ.blur();
+      setTimeout(function () { aller(n + 1, true); }, 900);
+    } else {
+      msg.className = "msg"; msg.textContent = n === 0 ? "Code refusé." : "Fausse piste. Regarde encore.";
+      champ.classList.remove("secoue"); void champ.offsetWidth; champ.classList.add("secoue");
+      rate[n]++;
+      var k = rate[n] / 2 - 1;
+      if (rate[n] % 2 === 0 && k < AIDE[n].length) { var d = document.createElement("div"); d.textContent = "Indice : " + AIDE[n][k]; $("h" + n).appendChild(d); }
+      else if (rate[n] % 2 === 1 && (rate[n] + 1) / 2 - 1 < AIDE[n].length) msg.textContent += " Encore une erreur et je te file un indice.";
+    }
+  }
+  document.querySelectorAll("[data-e]").forEach(function (b) { b.addEventListener("click", function () { valider(+b.dataset.e); }); });
+  [0, 1, 2].forEach(function (n) { $("i" + n).addEventListener("keydown", function (e) { if (e.key === "Enter") valider(n); }); });
+  $("raz").addEventListener("click", function () { noter(0); rate = { 0: 0, 1: 0, 2: 0 }; ["h0", "h1", "h2", "m0", "m1", "m2"].forEach(function (i) { $(i).textContent = ""; }); $("i0").value = $("i1").value = $("i2").value = ""; aller(0); });
+
+  function confettis() {
+    var c = $("conf"), x = c.getContext("2d"), W = c.width = innerWidth, H = c.height = innerHeight, t0 = performance.now();
+    var cols = ["#d9a441", "#ffd66b", "#c8442f", "#4caf7a", "#f4efe6"], ps = [];
+    for (var i = 0; i < 130; i++) ps.push({ x: Math.random() * W, y: -Math.random() * H, v: 2 + Math.random() * 4, d: Math.random() * 6.28, s: 5 + Math.random() * 7, c: cols[i % 5] });
+    (function f(t) {
+      x.clearRect(0, 0, W, H);
+      if (t - t0 > 9000) return;
+      ps.forEach(function (p) { p.y += p.v; p.d += .05; p.x += Math.sin(p.d) * 1.5; x.fillStyle = p.c; x.fillRect(p.x, p.y, p.s, p.s * .6); });
+      requestAnimationFrame(f);
+    })(t0);
+  }
+  if (lire() >= 3) aller(3, false); else if (lire() >= 1) aller(lire(), false);
+})();
+</script>
+</body>
+</html>
