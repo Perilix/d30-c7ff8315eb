@@ -81,9 +81,9 @@ canvas#conf { position: fixed; inset: 0; width: 100%; height: 100%; pointer-even
   <section id="e1" class="ecran">
     <div class="sur">Dossier n°30 · Piste 1 · Le rébus</div>
     <div class="pas"><i class="fait"></i><i></i><i></i></div>
-    <div class="cadre"><video id="v1" src="a.mp4" poster="a.jpg" playsinline preload="metadata"></video><div class="rejouer" id="r1"><button data-v="v1">▶ Revoir les quatre images</button></div></div>
+    <div class="cadre"><video id="v1" src="a.mp4?v=3" poster="a.jpg" playsinline preload="metadata"></video><div class="rejouer" id="r1"><button data-v="v1">▶ Revoir le rébus</button></div></div>
     <div class="fiche">
-      <label for="i1">Quatre images, une ville. Laquelle ?</label>
+      <label for="i1">Mon tout est une ville. Laquelle ?</label>
       <input id="i1" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Ta réponse">
       <button data-e="1">Valider</button>
       <div class="msg" id="m1"></div>
@@ -94,7 +94,7 @@ canvas#conf { position: fixed; inset: 0; width: 100%; height: 100%; pointer-even
   <section id="e2" class="ecran">
     <div class="sur">Dossier n°30 · Piste 2 · Les pièces à conviction</div>
     <div class="pas"><i class="fait"></i><i class="fait"></i><i></i></div>
-    <div class="cadre"><video id="v2" src="b.mp4" poster="b.jpg" playsinline preload="metadata"></video><div class="rejouer" id="r2"><button data-v="v2">▶ Revoir les six pièces</button></div></div>
+    <div class="cadre"><video id="v2" src="b.mp4?v=3" poster="b.jpg" playsinline preload="metadata"></video><div class="rejouer" id="r2"><button data-v="v2">▶ Revoir les six pièces</button></div></div>
     <div class="fiche">
       <label for="i2">Six initiales, une ville. Laquelle ?</label>
       <input id="i2" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Ta réponse">
@@ -107,7 +107,7 @@ canvas#conf { position: fixed; inset: 0; width: 100%; height: 100%; pointer-even
   <section id="e3" class="ecran">
     <div class="sur">Dossier n°30 · Affaire résolue</div>
     <div class="pas"><i class="fait"></i><i class="fait"></i><i class="fait"></i></div>
-    <div class="cadre"><video id="v3" src="c.mp4" poster="c.jpg" playsinline preload="metadata"></video><div class="rejouer" id="r3"><button data-v="v3">▶ Revoir</button></div></div>
+    <div class="cadre"><video id="v3" src="c.mp4?v=3" poster="c.jpg" playsinline preload="metadata"></video><div class="rejouer" id="r3"><button data-v="v3">▶ Revoir</button></div></div>
     <h1>Joyeux 30 ans, Cécile.</h1>
     <p>Ton cadeau : un week-end, dans la ville que ton agenda choisira.</p>
     <div class="villes"><div>Marrakech<small>mât · rat · quai · ch</small></div><span class="ou">ou</span><div>Dublin<small>N · U · L · I · D · B</small></div></div>
@@ -123,7 +123,7 @@ canvas#conf { position: fixed; inset: 0; width: 100%; height: 100%; pointer-even
   var BON = { 0: [2085891138], 1: [3387452077, 3387452605, 1551894079, 1551893551], 2: [1140095293] };
   var AIDE = {
     0: ["Quatre chiffres. Une année.", "Il y a trente ans, quelqu'un est né.", "Ton année de naissance, Cécile."],
-    1: ["C'est un rébus : nomme ce que tu vois, une syllabe par image.", "Image 1 : ce qui porte les voiles. Image 2 : le rongeur.", "Image 3 : là où on attend le train. Image 4 : le bruit qu'on fait pour faire taire quelqu'un.", "Mât… rat… quai… ch…"],
+    1: ["C'est un rébus : nomme ce que tu vois, une syllabe par image.", "Mon premier : ce qui porte les voiles. Mon deuxième : le rongeur.", "Mon troisième : là où on attend le train. Mon quatrième : le bruit qu'on fait pour faire taire quelqu'un.", "Mât… rat… quai… ch…"],
     2: ["Chaque pièce est un objet. Garde seulement sa première lettre.", "Un nid, un ukulélé, une loupe, un iguane, un dé, une bougie.", "N, U, L, I, D, B : remets-les dans l'ordre.", "C'est une capitale, sur une île très verte."]
   };
   var rate = { 0: 0, 1: 0, 2: 0 };
