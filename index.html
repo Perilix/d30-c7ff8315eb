@@ -52,6 +52,18 @@ input:focus { outline: none; border-color: var(--or); }
 .secoue { animation: secoue .35s; }
 @keyframes secoue { 25% { transform: translateX(-7px); } 50% { transform: translateX(7px); } 75% { transform: translateX(-4px); } }
 
+.recap { display: none; margin: 0 0 16px; }
+.recap.on { display: block; animation: entre .45s ease both; }
+.recap h2 { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--or); margin-bottom: 8px; font-weight: 800; }
+.grille { display: grid; gap: 8px; }
+.grille.g4 { grid-template-columns: repeat(4, 1fr); }
+.grille.g3 { grid-template-columns: repeat(3, 1fr); }
+.grille figure { position: relative; border-radius: 10px; overflow: hidden; background: #000; aspect-ratio: 9 / 16; cursor: zoom-in; border: 1px solid #38404f; }
+.grille img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.grille figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 4px 5px; font-size: 10.5px; font-weight: 800; text-align: center; color: #fff; background: linear-gradient(transparent, rgba(0,0,0,.85)); }
+#zoom { position: fixed; inset: 0; z-index: 20; display: none; align-items: center; justify-content: center; background: rgba(8,10,14,.92); padding: 16px; cursor: zoom-out; }
+#zoom.on { display: flex; }
+#zoom img { max-width: 100%; max-height: 92dvh; border-radius: 14px; }
 /* Fin */
 .villes { display: flex; gap: 10px; margin: 14px 0 6px; }
 .villes div { flex: 1; text-align: center; padding: 14px 6px; border-radius: 14px; background: var(--carte); border: 1px solid #2c3340; font-weight: 800; font-size: 19px; color: var(--or2); }
@@ -62,6 +74,7 @@ canvas#conf { position: fixed; inset: 0; width: 100%; height: 100%; pointer-even
 </head>
 <body>
 <canvas id="conf"></canvas>
+<div id="zoom"><img id="zoom-img" alt=""></div>
 <main>
 
   <section id="couv" class="ecran on">
@@ -82,6 +95,7 @@ canvas#conf { position: fixed; inset: 0; width: 100%; height: 100%; pointer-even
     <div class="sur">Dossier n°30 · Piste 1 · Le rébus</div>
     <div class="pas"><i class="fait"></i><i></i><i></i></div>
     <div class="cadre"><video id="v1" src="a.mp4?v=3" poster="a.jpg" playsinline preload="metadata"></video><div class="rejouer" id="r1"><button data-v="v1">▶ Revoir le rébus</button></div></div>
+    <div class="recap" id="c1"><h2>Le rébus sous les yeux</h2><div class="grille g4"><figure><img src="r1.jpg" alt="" loading="lazy"><figcaption>Mon premier</figcaption></figure><figure><img src="r2.jpg" alt="" loading="lazy"><figcaption>Mon deuxième</figcaption></figure><figure><img src="r3.jpg" alt="" loading="lazy"><figcaption>Mon troisième</figcaption></figure><figure><img src="r4.jpg" alt="" loading="lazy"><figcaption>Mon quatrième</figcaption></figure></div></div>
     <div class="fiche">
       <label for="i1">Mon tout est une ville. Laquelle ?</label>
       <input id="i1" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Ta réponse">
@@ -95,6 +109,7 @@ canvas#conf { position: fixed; inset: 0; width: 100%; height: 100%; pointer-even
     <div class="sur">Dossier n°30 · Piste 2 · Les pièces à conviction</div>
     <div class="pas"><i class="fait"></i><i class="fait"></i><i></i></div>
     <div class="cadre"><video id="v2" src="b.mp4?v=3" poster="b.jpg" playsinline preload="metadata"></video><div class="rejouer" id="r2"><button data-v="v2">▶ Revoir les six pièces</button></div></div>
+    <div class="recap" id="c2"><h2>Les six pièces sous les yeux</h2><div class="grille g3"><figure><img src="o1.jpg" alt="" loading="lazy"><figcaption>Pièce n°1</figcaption></figure><figure><img src="o2.jpg" alt="" loading="lazy"><figcaption>Pièce n°2</figcaption></figure><figure><img src="o3.jpg" alt="" loading="lazy"><figcaption>Pièce n°3</figcaption></figure><figure><img src="o4.jpg" alt="" loading="lazy"><figcaption>Pièce n°4</figcaption></figure><figure><img src="o5.jpg" alt="" loading="lazy"><figcaption>Pièce n°5</figcaption></figure><figure><img src="o6.jpg" alt="" loading="lazy"><figcaption>Pièce n°6</figcaption></figure></div></div>
     <div class="fiche">
       <label for="i2">Six initiales, une ville. Laquelle ?</label>
       <input id="i2" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Ta réponse">
@@ -132,6 +147,10 @@ canvas#conf { position: fixed; inset: 0; width: 100%; height: 100%; pointer-even
   function lire() { try { return parseInt(localStorage.getItem(CLE) || "0", 10) || 0; } catch (e) { return 0; } }
   function noter(n) { try { localStorage.setItem(CLE, String(n)); } catch (e) {} }
 
+  function dejaVu(n) { try { return localStorage.getItem(CLE + "vu" + n) === "1"; } catch (e) { return false; } }
+  function vu(n) { try { localStorage.setItem(CLE + "vu" + n, "1"); } catch (e) {} }
+  document.querySelectorAll(".grille figure").forEach(function (f) { f.addEventListener("click", function () { $("zoom-img").src = f.querySelector("img").src; $("zoom").classList.add("on"); }); });
+  $("zoom").addEventListener("click", function () { $("zoom").classList.remove("on"); });
   function aller(n, jouer) {
     ["couv", "e1", "e2", "e3"].forEach(function (id, i) { $(id).classList.toggle("on", i === n); });
     document.querySelectorAll("video").forEach(function (v) { v.pause(); });
@@ -141,11 +160,12 @@ canvas#conf { position: fixed; inset: 0; width: 100%; height: 100%; pointer-even
       $("r" + n).classList.remove("on");
       if (jouer) { v.currentTime = 0; var p = v.play(); if (p && p.catch) p.catch(function () { $("r" + n).classList.add("on"); }); }
       else $("r" + n).classList.add("on");
+      if (n < 3 && dejaVu(n)) $("c" + n).classList.add("on");
       if (n === 3 && jouer) confettis();
     }
   }
   [1, 2, 3].forEach(function (n) {
-    $("v" + n).addEventListener("ended", function () { $("r" + n).classList.add("on"); if (n < 3) $("i" + n).focus({ preventScroll: true }); });
+    $("v" + n).addEventListener("ended", function () { $("r" + n).classList.add("on"); if (n < 3) { $("c" + n).classList.add("on"); vu(n); } });
   });
   document.querySelectorAll("[data-v]").forEach(function (b) {
     b.addEventListener("click", function () { var v = $(b.dataset.v); b.parentNode.classList.remove("on"); v.currentTime = 0; v.play(); });
@@ -170,7 +190,7 @@ canvas#conf { position: fixed; inset: 0; width: 100%; height: 100%; pointer-even
   }
   document.querySelectorAll("[data-e]").forEach(function (b) { b.addEventListener("click", function () { valider(+b.dataset.e); }); });
   [0, 1, 2].forEach(function (n) { $("i" + n).addEventListener("keydown", function (e) { if (e.key === "Enter") valider(n); }); });
-  $("raz").addEventListener("click", function () { noter(0); rate = { 0: 0, 1: 0, 2: 0 }; ["h0", "h1", "h2", "m0", "m1", "m2"].forEach(function (i) { $(i).textContent = ""; }); $("i0").value = $("i1").value = $("i2").value = ""; aller(0); });
+  $("raz").addEventListener("click", function () { noter(0); try { localStorage.removeItem(CLE + "vu1"); localStorage.removeItem(CLE + "vu2"); } catch (e) {} $("c1").classList.remove("on"); $("c2").classList.remove("on"); rate = { 0: 0, 1: 0, 2: 0 }; ["h0", "h1", "h2", "m0", "m1", "m2"].forEach(function (i) { $(i).textContent = ""; }); $("i0").value = $("i1").value = $("i2").value = ""; aller(0); });
 
   function confettis() {
     var c = $("conf"), x = c.getContext("2d"), W = c.width = innerWidth, H = c.height = innerHeight, t0 = performance.now();
